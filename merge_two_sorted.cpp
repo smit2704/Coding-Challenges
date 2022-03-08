@@ -11,34 +11,60 @@ struct ListNode
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+// class Solution
+// {
+// public:
+//     ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
+//     {
+        // ListNode *head = new ListNode(0);
+//         ListNode *l = head;
+//         if (list1 == NULL)
+//         {
+//             return list2;
+//         }
+//         else if (list2 == NULL)
+//         {
+//             return list1;
+//         }
+//         else
+//         {
+//             if (list1->val < list2->val)
+//             {
+//                 list1->next=mergeTwoLists(list1->next,list2);
+//                 return list1;
+//             }
+//             else{
+//                 list2->next=mergeTwoLists(list1,list2->next);
+//                 return list2;
+//             }
+//         }
+//         // return head;
+//     }
+// };
+
 class Solution
 {
 public:
     ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
     {
-        ListNode *head = (ListNode *)malloc(sizeof(ListNode));
-        ListNode *l = head;
-        if (list1 == NULL)
-        {
-            return list2;
-        }
-        else if (list2 == NULL)
-        {
-            return list1;
-        }
-        else
-        {
-            if (list1->val < list2->val)
-            {
-                l=list1;
-                l->next=mergeTwoLists(list1->next,list2);
-            }
-            else{
-                l=list2;
-                l->next=mergeTwoLists(list1,list2->next);
-            }
-        }
-        return head;
+       ListNode *head=new ListNode(0);
+       ListNode *temp=head;
+       ListNode *l1=list1;
+       ListNode *l2=list2;
+       while(l1 && l2){
+           if(l1->val<l2->val){
+               temp->next=l1;
+               l1=l1->next;
+           }
+           else{
+               temp->next=l2;
+               l2=l2->next;
+           }
+           temp=temp->next;
+       }
+       if(l1)   temp->next=l1;
+       else   temp->next=l2;
+       return head->next;
     }
 };
 int main()
